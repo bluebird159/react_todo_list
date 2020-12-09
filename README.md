@@ -1,4 +1,4 @@
-# React TodoList
+# React Todo List
 This is my first code in React, I follow Brad 
 
 ## What I study
