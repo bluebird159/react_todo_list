@@ -1,0 +1,259 @@
+-----------
+Theory
+What is react? 
+	for UI and front-end applications
+	is the most popular framework in the industry
+
+Why use it?
+	make front-end much easier
+	self contained, independentr components with own state
+
+React state
+	state is an object that determines how that component render and behaves
+	different components can have thier own state
+	but need state that mul components need to access
+
+Structure
+	AboutPage
+	Header
+	AddTodo
+	Todo >>> TodoItem
+
+
+-----------
+How to start 
+	npx create-react-app .
+	npm start
+
+package.json
+	is containe package
+index.html
+	div#root is component for all react 
+index.js	
+	React render App.js to div#root
+App.js
+	class extend Component
+	render(){
+	  return (jsx);
+	}
+
+
+-----------
+Basic Clean up
+	delete index.css
+	delete logo.sgv
+	return div.App <h1>
+	core css in App.css (*, body)
+
+Create other Component
+	components >> Todos.js
+	import Todos to App.js
+
+
+-----------
+State	
+State in App.js, but we show in the Todos by state and props, map
+Create state for App.js
+	todos: [{id: 1, title: 'dsds'}, {}]
+How to access state
+	render: this.state.todos
+Pass state to Todos component as a props
+	todos={this.state.todos}
+access props at Todos.js
+	render: this.props.todos
+Using map to loop through
+	this.props.todos.map((todo) => (
+	   <h3>{todo.title}</h3>
+	))
+
+Create TodoItem.js
+	import todoitem to todos
+	pass todo to todo Prop of TodoItem
+
+When need a key because we map something mean we using lest
+	add key to TodoItem: key={todo.id}
+
+
+
+-----------
+PropTypes
+	a validation for a prop that component should have
+	set the type and req
+Add PropTypes in Todos
+	import PropTypes from ..
+	outside class: Todos.propTypes = {
+	   todos: PropTypes.array.isRequired
+	}
+Add PropTypes TodoItem
+	todo: object
+
+
+
+-----------
+Style Component
+	inline: style = {{ backgroundColor: red }}
+	const itemStyle = {
+	   backgroundColor: '#f4f4f4'
+	} ==> style = {itemStyle}
+Style Function
+	style = {this.getStyle()}
+	in render: getStyle = () => {
+	   if (this.props.todo.complete) { return {textDecoration: 'line-through'} }
+	}
+	==>  return: textDecoration: this.props.todo.completed? 'line-through' : 'none'
+		     background, padding, borderBottom
+
+
+-----------
+Checkbox
+Add a checkbox  
+	input type checkbox
+	onChange={this.markComplete}
+Using arrow function
+	 markComplete = (e) => {cons.log(this.props)}
+
+Component Drilling because we dont use API	
+	We need climb the tree	
+	onChange = {this.props.markComplete  }
+	markComplete to App.js
+	bind id in onChange
+Create 
+	const { id, title } = this.props.todo;
+changeState
+	this.setState({ todos: map throuygh todos to check the id });	
+wow ==> kieu load con me no luon i hay vai 
+
+
+
+-----------
+Delete 
+custome Button x
+	const btnStyle
+	background, color, border, padding, borderRadius, cursor, float
+climb to the state
+	need know the id (bind(this, id))
+delTodo
+	using filter method: loop through and we return another array base on condition
+	return the array with todo don't match the id 
+	this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id) ] })
+
+
+-----------
+Create header
+	components >> layout >> Header.js
+function base component
+	function Header () {return()}
+	import Header in APp.js
+style Header
+	background, color, textAlign, padding
+
+
+-----------
+Create AddTodo
+	class:	<form> input: type:text, name, placeholder
+		input: type: submit
+Import 
+	put everything inside container
+Styleat App.css
+	container: padding 
+	btn: display, border, background, color, padding, cursor
+	btn:hover background	
+
+-----------
+Submit function at AddTodo
+Add state object 
+	title
+Add onChange on input
+	={this.onChange}
+Add onChange function
+	onChange = (e) => this.setState ({ [e.target.name]: e.target.value });
+Add onSubmit function
+	onSubmit = (e) => {e.preventDefault();
+			   this.props.addTodo(this.state.title);
+			   // clear state}
+Add addTodo props to App.js
+Create addTodo functino in App.js
+	// create newTodo
+	// copy and add newTodo
+	this.setState({ todos: [...this.state.todos, newTodo] });
+
+
+-----------
+setup UUID
+	npm i uuid
+	npm start 
+	import uuid
+	id: uuid.v4()
+
+-----------
+React Router
+	npm i react-router-dom
+Create about.js
+	components > pages > About.js
+	create about function 
+If don't need div	
+	<React.Fragment>
+	</React.Fragment>
+import ReactRouter
+	import { BroswerRouter as Router, Route }
+wrap 
+	wrap everything in <Router></Router> 
+	<Route exact path="/" render={props => (
+	   <React.Fragment>
+	   </React.Fragment>
+	)} />
+	create another Route for about with path="/about" component={About}
+Add link in the Header
+	import Link from react-router-dom
+	<Link to="/">Home</Link> | ... 	
+	style for link
+ 
+-----------
+HttpRequest 
+	npm i axios
+	npm start
+Fetch todos from internet
+	componentDidMount() { axios.get('...').then(res ==> setState }
+Post Request
+	axios.post('url', { title, completed: false}).then(res => setState)
+Delete Request
+	axios.delete(`url/id`).then(res => )
+
+-----------
+PropTypes
+	add propTypes for Todos (markComplete, delTodo)
+	AddTodo addTodo,  markComplete, delTodo)
+	TodoItem (todo, markComplete, delTodo)
+
+-----------
+Finish
+	npm run build
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
